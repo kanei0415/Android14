@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/input"
+        android:layout_width="326dp"
+        android:layout_height="41dp"
+        android:ems="10"
+        android:hint="파일에 저장할 내용을 입력 하세요"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="241dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="40dp"
+        android:onClick="intMemWrite"
+        android:text="내장메모리 파일 쓰기"
+        app:layout_constraintStart_toStartOf="@+id/input"
+        app:layout_constraintTop_toBottomOf="@+id/input" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="241dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="40dp"
+        android:onClick="intMemRead"
+        android:text="내장메모리 파일 읽기"
+        app:layout_constraintStart_toStartOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="241dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="40dp"
+        android:onClick="extMemWrite"
+        android:text="외장메모리 파일 쓰기"
+        app:layout_constraintStart_toStartOf="@+id/button2"
+        app:layout_constraintTop_toBottomOf="@+id/button2" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="242dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="40dp"
+        android:onClick="extMemRead"
+        android:text="외장메모리 파일 읽기"
+        app:layout_constraintStart_toStartOf="@+id/button3"
+        app:layout_constraintTop_toBottomOf="@+id/button3" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="243dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="40dp"
+        android:onClick="rawRead"
+        android:text="RAW 파일 읽기"
+        app:layout_constraintStart_toStartOf="@+id/button4"
+        app:layout_constraintTop_toBottomOf="@+id/button4" />
+
+    <TextView
+        android:id="@+id/output"
+        android:layout_width="337dp"
+        android:layout_height="137dp"
+        android:layout_marginTop="68dp"
+        android:gravity="center"
+        android:hint="파일 내용을 출력합니다"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/button5"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="@+id/button5"
+        app:layout_constraintTop_toBottomOf="@+id/button5" />
+</androidx.constraintlayout.widget.ConstraintLayout>

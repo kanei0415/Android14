@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity" >
+
+    <TextView
+        android:id="@+id/titleShow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="선택을 시작하시겠습니까?"
+        android:textSize="24sp" />
+
+    <CheckBox
+        android:id="@+id/startCheck"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="시 작"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/descriptionShow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="좋아하는 애완 동물을 선택하세요"
+        android:textSize="18sp"
+        android:visibility="invisible" />
+
+    <RadioGroup
+        android:id="@+id/animalChoice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible">
+
+        <RadioButton
+            android:id="@+id/dog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="강아지" />
+
+        <RadioButton
+            android:id="@+id/cat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="고양이" />
+
+        <RadioButton
+            android:id="@+id/hamster"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="햄스터" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="선택 확인"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/animalShow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/dog" />
+
+</LinearLayout>

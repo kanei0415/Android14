@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/start">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="600dp"
+            android:layout_weight="0.8"
+            android:background="#FFFEF5"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/dokkabi" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:background="#FFFEF5"
+            android:fontFamily="@font/nanum"
+            android:gravity="center"
+            android:text="Round and Round (Inst.)"
+            android:textColor="@color/black"
+            android:textSize="30sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="500dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/next"
+            android:hapticFeedbackEnabled="true"
+            android:tint="@android:color/transparent"
+            app:srcCompat="@drawable/stop" />
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/start"
+            android:hapticFeedbackEnabled="true"
+            android:tint="@android:color/transparent"
+            app:srcCompat="@drawable/start" />
+
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/stop"
+            android:hapticFeedbackEnabled="true"
+            android:tint="@android:color/transparent"
+            app:srcCompat="@drawable/stop" />
+    </LinearLayout>
+</FrameLayout>
