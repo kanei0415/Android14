@@ -17,6 +17,10 @@ class MyGraphicView extends View {
 
     Paint paint;
 
+    public Paint getPaint() {
+        return paint;
+    }
+
     ArrayList<MyPoint> arrayList = new ArrayList<>();
 
     public MyGraphicView(Context context) {
@@ -24,6 +28,8 @@ class MyGraphicView extends View {
         mainActivity = (MainActivity)context;
         initPaint();
     }
+
+
 
     public void clearArrayList() {
         arrayList.clear();
@@ -49,10 +55,12 @@ class MyGraphicView extends View {
             case MainActivity.FREE:
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        arrayList.add(new MyPoint(event.getX(),event.getY() ,false));
+                        arrayList.add(new MyPoint(event.getX(),event.getY(),
+                                paint.getColor(), (int)paint.getStrokeWidth(),false));
                         break;
                     case MotionEvent.ACTION_MOVE:
-                        arrayList.add(new MyPoint(event.getX(),event.getY(),true));
+                        arrayList.add(new MyPoint(event.getX(),event.getY(),
+                                paint.getColor(), (int)paint.getStrokeWidth(),true));
                         invalidate();
                         break;
                     default: break;
@@ -68,7 +76,7 @@ class MyGraphicView extends View {
         paint.setAntiAlias(true);
         paint.setStrokeWidth(10);
         paint.setStyle(Paint.Style.STROKE);
-        paint.setColor(Color.GREEN);
+        paint.setColor(Color.BLACK);
     }
 
     @Override
@@ -77,26 +85,19 @@ class MyGraphicView extends View {
 
         switch (mainActivity.getDrawType()) {
             case MainActivity.LINE:
-                paint.setStyle(Paint.Style.FILL);
-                paint.setColor(Color.GREEN);
-
                 canvas.drawLine(startX,startY , stopX,stopY , paint);
                 break;
             case MainActivity.CIRCLE:
-                paint.setStyle(Paint.Style.STROKE);
-                paint.setColor(Color.RED);
-
                 int radius = (int)Math.sqrt(
                         Math.pow(stopX-startX,2) + Math.pow(stopY-startY,2)
                 );
                 canvas.drawCircle(startX,startY , radius , paint);
                 break;
             case MainActivity.FREE:
-                paint.setStyle(Paint.Style.STROKE);
-                paint.setColor(Color.BLACK);
-
                 for(int i=1 ; i<arrayList.size() ; i++) {
                     if(arrayList.get(i).isDraw()) {
+                        paint.setColor(arrayList.get(i-1).getColor());
+                        paint.setStrokeWidth(arrayList.get(i-1).getWidth());
                         canvas.drawLine(
                                 arrayList.get(i-1).getX(),arrayList.get(i-1).getY(),
                                 arrayList.get(i).getX(),arrayList.get(i).getY(),
@@ -106,12 +107,5 @@ class MyGraphicView extends View {
                 }
                 break;
         }
-
-        // line  그리기
-        //canvas.drawLine(startX,startY , stopX,stopY , paint);
-
-        // circle 그리기
-        //int radius = (int)Math.sqrt(Math.pow(stopX-startX , 2) + Math.pow(stopY-startY , 2));
-        //canvas.drawCircle(startX,startY , radius , paint);
     }
 }

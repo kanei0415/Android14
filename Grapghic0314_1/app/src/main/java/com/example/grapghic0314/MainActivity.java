@@ -1,13 +1,16 @@
 package com.example.grapghic0314;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -27,9 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(0 , 1 , 0 , "선 그리기");
-        menu.add(0 , 2 , 0 , "원 그리기");
-        menu.add(0 , 3 , 0 , "그림 그리기");
+        getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
@@ -37,26 +38,113 @@ public class MainActivity extends AppCompatActivity {
 
     private int drawType = LINE;
 
+    private String selectColor;
+
+    private String selectWidth;
+
     public int getDrawType() {
         return drawType;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        myGraphicView.clearArrayList();
-        
         switch (item.getItemId()) {
-            case LINE: drawType = LINE;
+            case R.id.line: drawType = LINE;
                 Toast.makeText(this,"선 그리기", Toast.LENGTH_SHORT).show();
+                myGraphicView.clearArrayList();
                 break;
-            case CIRCLE: drawType = CIRCLE;
+            case R.id.circle: drawType = CIRCLE;
                 Toast.makeText(this,"원 그리기", Toast.LENGTH_SHORT).show();
+                myGraphicView.clearArrayList();
                 break;
-            case FREE: drawType = FREE;
+            case R.id.freeLine: drawType = FREE;
                 Toast.makeText(this,"그림 그리기", Toast.LENGTH_SHORT).show();
+                myGraphicView.clearArrayList();
+                break;
+            case R.id.colorPick:
+                getColorPick();
+                Toast.makeText(this,"색상 변경", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.widthPick:
+                getWidthPick();
+                Toast.makeText(this,"굵기 변경", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.save:
+                Toast.makeText(this,"이미지 저장", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.exit:
+                finish();
                 break;
         }
 
         return true;
+    }
+
+    public void getColorPick() {
+
+        String[] words = new String[] {
+          "검정", "파랑", "빨강", "녹색", "보라"
+        };
+
+        new AlertDialog.Builder(this).setTitle("선택").
+        setSingleChoiceItems(words, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                selectColor = words[which];
+                Log.d("setSingleChoiceItems", "selectColor : " + selectColor);
+            }
+        })
+        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(MainActivity.this, selectColor, Toast.LENGTH_SHORT).show();
+                myGraphicView.getPaint().setColor(getColorInt(selectColor));
+            }
+        })
+        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.d("setNegativeButton", "색상 선택 취소");
+            }
+        }).show();
+    }
+
+    public int getColorInt(String color) {
+        switch (color) {
+            case "검정": return Color.BLACK;
+            case "파랑": return Color.BLUE;
+            case "빨강": return Color.RED;
+            case "녹색": return Color.GREEN;
+            case "보라": return Color.MAGENTA;
+            default: return 0;
+        }
+    }
+
+    public void getWidthPick () {
+        String[] widths = new String[] {
+                "10", "20", "30", "40", "50"
+        };
+
+        new AlertDialog.Builder(this).setTitle("선택").
+                setSingleChoiceItems(widths, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        selectWidth = widths[which];
+                        Log.d("setSingleChoiceItems", "selectWidth : " + selectWidth);
+                    }
+                })
+                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(MainActivity.this, selectWidth, Toast.LENGTH_SHORT).show();
+                        myGraphicView.getPaint().setStrokeWidth(Integer.parseInt(selectWidth));
+                    }
+                })
+                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.d("setNegativeButton", "굵기 선택 취소");
+                    }
+                }).show();
     }
 }

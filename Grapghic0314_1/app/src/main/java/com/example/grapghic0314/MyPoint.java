@@ -5,14 +5,26 @@ public class MyPoint {
 
     private boolean isDraw;
 
-    public MyPoint(float x, float y, boolean isDraw) {
+    private int color, width;
+
+    public MyPoint(float x, float y, int color, int width, boolean isDraw) {
         this.x = x;
         this.y = y;
+        this.color = color;
+        this.width = width;
         this.isDraw = isDraw;
     }
 
     public float getX() {
         return x;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public int getWidth() {
+        return width;
     }
 
     public void setX(float x) {
