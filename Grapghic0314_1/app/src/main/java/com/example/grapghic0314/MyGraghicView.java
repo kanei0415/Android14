@@ -1,6 +1,8 @@
 package com.example.grapghic0314;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -10,8 +12,14 @@ import android.view.View;
 import java.util.ArrayList;
 
 class MyGraphicView extends View {
+    public static final String  PAINT_MODE = "paint",
+            DRAW_MODE = "draw",
+            COLOR_MODE = "color",
+            LOAD_MODE = "load";
+
     private int startX = -1, startY = -1;
     private int stopX = -1, stopY = -1;
+    private String mode = PAINT_MODE;
 
     MainActivity mainActivity;
 
@@ -29,6 +37,9 @@ class MyGraphicView extends View {
         initPaint();
     }
 
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
 
 
     public void clearArrayList() {
@@ -79,9 +90,45 @@ class MyGraphicView extends View {
         paint.setColor(Color.BLACK);
     }
 
+    public void drawBackGround(Canvas canvas) {
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.img);
+        int x = (getWidth() - bitmap.getWidth()) / 2;
+        int y = (getHeight() - bitmap.getHeight()) / 2;
+        canvas.drawBitmap(bitmap, x, y,null);
+        bitmap.recycle();
+    }
+
+    public void loadBackGround(Canvas canvas) {
+        Bitmap bitmap = BitmapFactory.decodeFile(mainActivity.getPath());
+        int x = (getWidth() - bitmap.getWidth()) / 2;
+        int y = (getHeight() - bitmap.getHeight()) / 2;
+        canvas.drawBitmap(bitmap, x, y,null);
+        bitmap.recycle();
+    }
+
+    public void drawFreeLine(Canvas canvas) {
+        for(int i=1 ; i<arrayList.size() ; i++) {
+            if(arrayList.get(i).isDraw()) {
+                paint.setColor(arrayList.get(i-1).getColor());
+                paint.setStrokeWidth(arrayList.get(i-1).getWidth());
+                canvas.drawLine(
+                        arrayList.get(i-1).getX(),arrayList.get(i-1).getY(),
+                        arrayList.get(i).getX(),arrayList.get(i).getY(),
+                        paint
+                );
+            }
+        }
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
+        if(mode.equals(COLOR_MODE)) {
+            drawBackGround(canvas);
+        } else if(mode.equals(LOAD_MODE)) {
+            loadBackGround(canvas);
+        }
 
         switch (mainActivity.getDrawType()) {
             case MainActivity.LINE:
@@ -94,17 +141,7 @@ class MyGraphicView extends View {
                 canvas.drawCircle(startX,startY , radius , paint);
                 break;
             case MainActivity.FREE:
-                for(int i=1 ; i<arrayList.size() ; i++) {
-                    if(arrayList.get(i).isDraw()) {
-                        paint.setColor(arrayList.get(i-1).getColor());
-                        paint.setStrokeWidth(arrayList.get(i-1).getWidth());
-                        canvas.drawLine(
-                                arrayList.get(i-1).getX(),arrayList.get(i-1).getY(),
-                                arrayList.get(i).getX(),arrayList.get(i).getY(),
-                                paint
-                        );
-                    }
-                }
+                drawFreeLine(canvas);
                 break;
         }
     }

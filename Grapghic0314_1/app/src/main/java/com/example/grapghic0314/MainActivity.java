@@ -42,6 +42,13 @@ public class MainActivity extends AppCompatActivity {
 
     private String selectWidth;
 
+    ImgSave imgSave = new ImgSave(this);
+    private String path;
+
+    public String getPath() {
+        return path;
+    }
+
     public int getDrawType() {
         return drawType;
     }
@@ -52,14 +59,17 @@ public class MainActivity extends AppCompatActivity {
             case R.id.line: drawType = LINE;
                 Toast.makeText(this,"선 그리기", Toast.LENGTH_SHORT).show();
                 myGraphicView.clearArrayList();
+                myGraphicView.setMode(MyGraphicView.PAINT_MODE);
                 break;
             case R.id.circle: drawType = CIRCLE;
                 Toast.makeText(this,"원 그리기", Toast.LENGTH_SHORT).show();
                 myGraphicView.clearArrayList();
+                myGraphicView.setMode(MyGraphicView.PAINT_MODE);
                 break;
             case R.id.freeLine: drawType = FREE;
                 Toast.makeText(this,"그림 그리기", Toast.LENGTH_SHORT).show();
                 myGraphicView.clearArrayList();
+                myGraphicView.setMode(MyGraphicView.DRAW_MODE);
                 break;
             case R.id.colorPick:
                 getColorPick();
@@ -70,13 +80,25 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this,"굵기 변경", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.save:
+                imgSave.imageFileSave(myGraphicView);
+                path = imgSave.getStrFilePath();
                 Toast.makeText(this,"이미지 저장", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.exit:
                 finish();
                 break;
+            case R.id.paintColor: drawType = FREE;
+                Toast.makeText(this,"색칠 하기", Toast.LENGTH_SHORT).show();
+                myGraphicView.clearArrayList();
+                myGraphicView.setMode(MyGraphicView.COLOR_MODE);
+                break;
+            case R.id.load: drawType = FREE;
+                Toast.makeText(this,"이미지 불러오기", Toast.LENGTH_SHORT).show();
+                myGraphicView.setMode(MyGraphicView.LOAD_MODE);
+                break;
         }
 
+        myGraphicView.invalidate();
         return true;
     }
 

@@ -3,16 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/line"
         android:orderInCategory="100"
-        android:title="선 그리기"
-        app:showAsAction="never" />
+        android:title="도형 그리기"
+        app:showAsAction="never" >
+        <menu>
+            <item
+                android:id="@+id/line"
+                android:orderInCategory="100"
+                android:title="선 그리기"
+                app:showAsAction="never" />
 
-    <item
-        android:id="@+id/circle"
-        android:orderInCategory="100"
-        android:title="원 그리기"
-        app:showAsAction="never" />
+            <item
+                android:id="@+id/circle"
+                android:orderInCategory="100"
+                android:title="원 그리기"
+                app:showAsAction="never" />
+        </menu>
+    </item>
 
     <item
         android:id="@+id/freeLine"
@@ -21,21 +28,40 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/colorPick"
+        android:id="@+id/paintColor"
         android:orderInCategory="100"
-        android:title="색상 변경"
+        android:title="색칠 하기"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/widthPick"
         android:orderInCategory="100"
-        android:title="굵기 변경"
-        app:showAsAction="never" />
+        android:title="Paint 설정"
+        app:showAsAction="never" >
+        <menu>
+            <item
+                android:id="@+id/colorPick"
+                android:orderInCategory="100"
+                android:title="색상 변경"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/widthPick"
+                android:orderInCategory="100"
+                android:title="굵기 변경"
+                app:showAsAction="never" />
+        </menu>
+    </item>
 
     <item
         android:id="@+id/save"
         android:orderInCategory="100"
         android:title="이미지 저장"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/load"
+        android:orderInCategory="100"
+        android:title="이미지 불러오기"
         app:showAsAction="never" />
 
     <item
